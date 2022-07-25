@@ -4,52 +4,59 @@ function getComputerChoice(){
 }
 
 function playRound(playerSelection, computerSelection) {
-    // the array is for printing with ease the choices
-    let choices = ["rock", "paper", "scissors"]
-    //make the layer choice allways lower case for a more defensive code in case of a incorrect awnser the player will all ways lose
-    playerSelection = playerSelection.toLowerCase()
-    switch(playerSelection){
-        case "rock": playerSelection = 1; break;
-        case "paper": playerSelection = 2; break;
-        case "scissors": playerSelection = 3; break;
-        default: playerSelection = 0;
+    let choices = ["rock", "paper", "scissors"] // the array is for printing with ease the choices
+
+    //initialize the classes to be modified
+    const checks = document.querySelectorAll(".resultString");
+    if(checks != null){
+        checks.forEach(check => {
+            check.remove(); //remove string from prev game if it exits
+        });
     }
-    //draw case
+    const resultString = document.createElement("div"); 
+    resultString.classList.add("resultString");
+    const winLose = document.querySelector(".winLose");
+
+ 
     if(playerSelection == computerSelection){
-        console.log("Draw");
+        resultString.innerText = "Draw";
+        document.body.appendChild(resultString);
+        winLose.innerText = `wins = ${wins} | Losses = ${losses}`;
         return 0;
     }
-    //winnig case in which the greater number is allways the winner expect when its 1/3
-    else if(((playerSelection > computerSelection) || (playerSelection == 1 && computerSelection == 3))){
-        if(playerSelection == 3 && computerSelection == 1){
-            console.log(`You Lose! ${choices[computerSelection-1]} beats ${choices[playerSelection-1]}`);
-            return 2;
-        }
-        console.log(`You Win! ${choices[playerSelection-1]} beats ${choices[computerSelection-1]}`);
-        return 1;
+    //winnig case in which the greater number is allways the winner expect when its 1/3 or 3/1
+    else if((((playerSelection > computerSelection) && (playerSelection != 3 || computerSelection != 1)) || (playerSelection == 1 && computerSelection == 3))){
+        resultString.innerText = `You Win! ${choices[playerSelection-1]} beats ${choices[computerSelection-1]}`;
+        document.body.appendChild(resultString);
+        ++wins
+        winLose.innerText = `wins = ${wins} | Losses = ${losses}`;
+        return;
     }
-    //losing case is all the other that haven't happend yet
     else{
-        console.log(`You Lose! ${choices[computerSelection-1]} beats ${choices[playerSelection-1]}`);
-        return 2;
+        resultString.innerText = `You Lose! ${choices[computerSelection-1]} beats ${choices[playerSelection-1]}`;
+        document.body.appendChild(resultString);
+        ++losses
+        winLose.innerText = `wins = ${wins} | Losses = ${losses}`;
+        return ;
     }
 }
 
-function game(){
-    //number of wins of the cpu and user
-    let userWins = 0;
-    let ComputerWins = 0;
-    //i is the game that is currently being played and there are a total of 5 games
-    for (let i = 0; i < 5; i++) {
-        let winner;
-        winner = playRound(prompt("your choice"), getComputerChoice());
-        if(winner == 1)
-            ++userWins;
-        else if(winner == 2)
-            ++ComputerWins
-    }
-    //the last decision of who wins (the one with most points in case of draw all games user wins)
-    userWins>=ComputerWins? console.log("YOU WIN") : console.log("Try Again");
+function finalResult(wins, losses){
+    const resultString = document.createElement("div"); 
+    resultString.classList.add("resultString");
+    (wins >= losses)? resultString.innerText = "You Win!" : resultString.innerText = "Better luck next time";
+    document.body.appendChild(resultString);
 }
 
-game()
+let wins = 0, losses = 0;
+const btns = document.querySelectorAll('button');
+btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        playRound(parseInt(btn.className), getComputerChoice())
+        if((wins + losses) >= 5){
+            finalResult(wins, losses);   
+            wins = 0;
+            losses = 0;
+        }
+    });
+});
