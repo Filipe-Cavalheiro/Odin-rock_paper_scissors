@@ -7,8 +7,12 @@ function changeScreen(){
     body.classList.add("body");
     body.style.background = "#f8f4bc";
     
+    const matchScreen = document.querySelector(".matchScreen");
+    const resume = document.createElement("div");
+    resume.classList.add("resume");
+    matchScreen.appendChild(resume);
+
     //add winLose && resultLog
-    const resume = document.querySelector(".resume");
     const winLose = document.createElement("div");
     winLose.classList.add("winLose");
     winLose.innerText = "Wins = 0 | Losses = 0" 
@@ -17,8 +21,11 @@ function changeScreen(){
     resultLog.classList.add("resultLog");
     resume.appendChild(resultLog);
     
+    const game = document.createElement("div");
+    game.classList.add("game");
+    matchScreen.appendChild(game);
+
     //add buttons
-    const matchScreen = document.querySelector(".matchScreen");
     const btnChoices = document.createElement("div");
     btnChoices.classList.add("btnChoices");
     matchScreen.appendChild(btnChoices);
@@ -45,6 +52,26 @@ function playGame() {
         playerSelection = parseInt(btn.className)
         computerSelection = getComputerChoice();
         let choices = ["water", "snow", "fire"]
+
+        //create card
+        let check = document.querySelector(".playerCard")
+        if(check != null)
+            check.parentNode.removeChild(check);
+        const game = document.querySelector(".game");
+        const playerCard = document.createElement("div")
+        playerCard.classList.add("playerCard");
+        let rand = Math.floor(Math.random()*4)+1;
+        playerCard.style.backgroundImage = `url(images/${choices[playerSelection-1]}_card${rand}.webp)`;
+        game.appendChild(playerCard);
+
+        check = document.querySelector(".computerCard")
+        if(check != null)
+            check.parentNode.removeChild(check);
+        const computerCard = document.createElement("div")
+        computerCard.classList.add("computerCard");
+        rand = Math.floor(Math.random()*4)+1;
+        computerCard.style.backgroundImage = `url(images/${choices[computerSelection-1]}_card${rand}.webp)`;
+        game.appendChild(computerCard);
 
         //initialize the result string
         const resultLog = document.querySelector(".resultLog");
@@ -107,6 +134,13 @@ function finalResult(wins, losses){
         winLose.innerText = `Wins = 0 | Losses = 0`;
         gameEndScreen.replaceChildren();
         gameEndScreen.parentNode.removeChild(gameEndScreen);
+
+        const game = document.querySelector(".game");
+        const playerCard = document.querySelector(".playerCard");
+        game.removeChild(playerCard);
+
+        const computerCard = document.querySelector(".computerCard");
+        game.removeChild(computerCard);
     });
 }
 

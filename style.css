@@ -87,11 +87,13 @@ button.startGame:active{
 /*Match screen*/
 .resume{
     display: flex;
+    border-bottom: 10px solid #d71200;
+    border-radius: 10px;
 }
 
 .winLose{
-    padding: 30px;
     font-size: 32px;
+    padding: 50px;
 }
 
 .resultLog{
@@ -100,7 +102,6 @@ button.startGame:active{
     display: flex;
     flex-direction: column;
     border-left: 5px solid #dba82e;
-    border-bottom: 5px solid #dba82e;
     margin-left: auto;
 }
 
@@ -111,16 +112,46 @@ button.startGame:active{
 }
 
 .game{
+    background: url("images/GameBackgrounf.jpg");
     display: flex;
     flex-direction: column;
-    padding: 240px 0;
+    padding: 280px 0;
     text-align: center;
     font-size: 64px;
+    justify-content: space-around;
+}
+
+.computerCard{
+    position: absolute;
+    height: 250px;
+    width: 220px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: 200px;
+    background: no-repeat center;
+    background-size: cover;
+}
+
+.playerCard{
+    position: absolute;
+    height: 250px;
+    width: 220px;
+    left: 0; 
+    right: 0; 
+    margin-right: auto; 
+    margin-left: 200px;
+    background: no-repeat center;
+    background-size: cover;
 }
 
 .gameEndScreen{
-    position: fixed;
-    left: 840px;
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    width: 300px;
 }
 
 .gameEndScreen h5{
@@ -150,8 +181,9 @@ button.startGame:active{
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    padding: 40px 100px;
-    border-top: 10px dotted #dba82e;
+    padding: 20px 100px;
+    border-top: 10px solid #d71200;
+    border-radius: 10px;
 }
 
 .btnChoices button{
