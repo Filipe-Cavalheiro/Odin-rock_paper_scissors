@@ -6,12 +6,9 @@ function changeScreen(){
     const body = document.querySelector("body");
     body.classList.add("body");
     body.style.background = "#f8f4bc";
-
-    //add resume
-    const matchScreen = document.querySelector(".matchScreen");
-    const resume = document.querySelector(".resume");
-
+    
     //add winLose && resultLog
+    const resume = document.querySelector(".resume");
     const winLose = document.createElement("div");
     winLose.classList.add("winLose");
     winLose.innerText = "Wins = 0 | Losses = 0" 
@@ -19,8 +16,9 @@ function changeScreen(){
     const resultLog = document.createElement("div");
     resultLog.classList.add("resultLog");
     resume.appendChild(resultLog);
-
+    
     //add buttons
+    const matchScreen = document.querySelector(".matchScreen");
     const btnChoices = document.createElement("div");
     btnChoices.classList.add("btnChoices");
     matchScreen.appendChild(btnChoices);
@@ -46,7 +44,7 @@ function playGame() {
         btn.addEventListener('click', () => {
         playerSelection = parseInt(btn.className)
         computerSelection = getComputerChoice();
-        let choices = ["water", "snow", "fire"] // the array is for printing to ease the choices
+        let choices = ["water", "snow", "fire"]
 
         //initialize the result string
         const resultLog = document.querySelector(".resultLog");
@@ -105,8 +103,6 @@ function finalResult(wins, losses){
     gameEndScreen.appendChild(replayBtn);
 
     replayBtn.addEventListener('click', () => {
-        wins = 0;
-        losses = 0;
         const winLose = document.querySelector(".winLose");
         winLose.innerText = `Wins = 0 | Losses = 0`;
         gameEndScreen.replaceChildren();
